@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="EXT:ojobpub/Configuration/Sets/OJobPub/labels.xlf" date="2026-10-20T00:00:00Z" product-name="ojobpub">
+    <header/>
+    <body>
+      <trans-unit id="label"><source>oJobPub feed</source></trans-unit>
+      <trans-unit id="categories.ojobpub"><source>oJobPub</source></trans-unit>
+      <trans-unit id="categories.ojobpub.employer"><source>Employer</source></trans-unit>
+      <trans-unit id="categories.ojobpub.native"><source>Job records</source></trans-unit>
+
+      <trans-unit id="settings.ojobpub.enabled"><source>Serve /.well-known/ojobpub.json</source></trans-unit>
+      <trans-unit id="settings.ojobpub.source"><source>Job source</source></trans-unit>
+      <trans-unit id="settings.description.ojobpub.source"><source>"native" uses the oJobPub job records. Other extensions can register their own sources.</source></trans-unit>
+      <trans-unit id="settings.ojobpub.defaults.country"><source>Default country (ISO 3166-1 alpha-2)</source></trans-unit>
+      <trans-unit id="settings.description.ojobpub.defaults.country"><source>Used for job locations without a country. Empty: the employer's country.</source></trans-unit>
+      <trans-unit id="settings.ojobpub.cacheLifetime"><source>Cache lifetime in seconds</source></trans-unit>
+
+      <trans-unit id="settings.ojobpub.employer.name"><source>Employer name</source></trans-unit>
+      <trans-unit id="settings.description.ojobpub.employer.name"><source>Required. Without it the feed is not served.</source></trans-unit>
+      <trans-unit id="settings.ojobpub.employer.city"><source>Headquarters city</source></trans-unit>
+      <trans-unit id="settings.ojobpub.employer.country"><source>Headquarters country (ISO 3166-1 alpha-2, e.g. CH)</source></trans-unit>
+      <trans-unit id="settings.ojobpub.employer.industry"><source>Industry</source></trans-unit>
+      <trans-unit id="settings.ojobpub.employer.url"><source>Employer website</source></trans-unit>
+      <trans-unit id="settings.description.ojobpub.employer.url"><source>Empty: the site's base URL.</source></trans-unit>
+
+      <trans-unit id="settings.ojobpub.native.storagePids"><source>Storage folders of job records (comma-separated page IDs)</source></trans-unit>
+      <trans-unit id="settings.ojobpub.native.detailPid"><source>Job detail page</source></trans-unit>
+      <trans-unit id="settings.description.ojobpub.native.detailPid"><source>Used for jobs without their own link.</source></trans-unit>
+    </body>
+  </file>
+</xliff>

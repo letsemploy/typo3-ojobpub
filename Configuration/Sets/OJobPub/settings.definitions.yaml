@@ -1,0 +1,67 @@
+# Site settings of the feed. Editable in Site Management > Settings once the
+# set "letsemploy/ojobpub" is added to a site. Labels: labels.xlf next to this file.
+#
+# Types are limited to those available in both TYPO3 v13.4 and v14 (no "page"/"url").
+
+categories:
+  ojobpub: ~
+  ojobpub.employer:
+    parent: ojobpub
+  ojobpub.native:
+    parent: ojobpub
+
+settings:
+  ojobpub.enabled:
+    type: bool
+    default: false
+    category: ojobpub
+
+  ojobpub.source:
+    type: string
+    default: native
+    category: ojobpub
+
+  ojobpub.defaults.country:
+    type: string
+    default: ''
+    category: ojobpub
+
+  ojobpub.cacheLifetime:
+    type: int
+    default: 3600
+    category: ojobpub
+
+  ojobpub.employer.name:
+    type: string
+    default: ''
+    category: ojobpub.employer
+
+  ojobpub.employer.city:
+    type: string
+    default: ''
+    category: ojobpub.employer
+
+  ojobpub.employer.country:
+    type: string
+    default: ''
+    category: ojobpub.employer
+
+  ojobpub.employer.industry:
+    type: string
+    default: ''
+    category: ojobpub.employer
+
+  ojobpub.employer.url:
+    type: string
+    default: ''
+    category: ojobpub.employer
+
+  ojobpub.native.storagePids:
+    type: string
+    default: ''
+    category: ojobpub.native
+
+  ojobpub.native.detailPid:
+    type: int
+    default: 0
+    category: ojobpub.native

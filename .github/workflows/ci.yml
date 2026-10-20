@@ -1,0 +1,99 @@
+# Lints and unit-tests the extension for every supported PHP and TYPO3 version.
+# Generated feeds are validated against the published oJobPub schema (letsemploy/schema).
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  composer:
+    name: Composer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: intl
+          tools: composer
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress
+
+      - name: Check for security advisories
+        run: composer audit
+
+      - name: Check that ext_emconf.php covers the composer constraints
+        run: |
+          grep -q "'typo3' => '13.4.0-14.4.99'" ext_emconf.php || {
+            echo "::error file=ext_emconf.php::TYPO3 constraint differs from composer.json (^13.4 || ^14.3)"
+            exit 1
+          }
+
+  test:
+    name: PHP ${{ matrix.php }}, TYPO3 ${{ matrix.typo3 }}${{ matrix.dependencies == 'lowest' && ' (lowest)' || '' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ["8.2", "8.3", "8.4", "8.5"]
+        typo3: ["13.4", "14.3"]
+        dependencies: [highest]
+        include:
+          - php: "8.2"
+            typo3: "13.4"
+            dependencies: lowest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: intl
+          tools: composer
+          coverage: none
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ matrix.php }}-${{ matrix.typo3 }}-${{ matrix.dependencies }}-${{ hashFiles('composer.json') }}
+          restore-keys: composer-${{ matrix.php }}-${{ matrix.typo3 }}-${{ matrix.dependencies }}-
+
+      - name: Install dependencies
+        run: |
+          composer require --no-update --no-interaction \
+            "typo3/cms-core:^${{ matrix.typo3 }}" "typo3/cms-frontend:^${{ matrix.typo3 }}"
+          composer update --no-interaction --no-progress \
+            ${{ matrix.dependencies == 'lowest' && '--prefer-lowest --prefer-stable' || '' }}
+          composer show typo3/cms-core phpunit/phpunit | grep -E '^(name|versions)'
+
+      - name: Lint
+        run: find Classes Configuration Tests ext_*.php -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Download oJobPub schema
+        run: curl -fsSL https://raw.githubusercontent.com/letsemploy/schema/main/v1/ojobpub.json -o "$RUNNER_TEMP/ojobpub.json"
+
+      - name: Unit tests
+        env:
+          OJOBPUB_SCHEMA: ${{ runner.temp }}/ojobpub.json
+        run: vendor/bin/phpunit --display-skipped --fail-on-skipped

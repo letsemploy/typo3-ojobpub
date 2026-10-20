@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="EXT:ojobpub/Resources/Private/Language/locallang_db.xlf" date="2026-10-20T00:00:00Z" product-name="ojobpub">
+    <header/>
+    <body>
+      <trans-unit id="tabs.job"><source>Job</source></trans-unit>
+      <trans-unit id="tabs.conditions"><source>Conditions</source></trans-unit>
+      <trans-unit id="tabs.locations"><source>Locations</source></trans-unit>
+      <trans-unit id="tabs.language"><source>Language</source></trans-unit>
+      <trans-unit id="tabs.access"><source>Access</source></trans-unit>
+      <trans-unit id="palette.dates"><source>Dates</source></trans-unit>
+      <trans-unit id="palette.workload"><source>Workload (% of full time)</source></trans-unit>
+      <trans-unit id="palette.salary"><source>Salary</source></trans-unit>
+
+      <trans-unit id="tx_ojobpub_domain_model_job"><source>Job opening</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.title"><source>Title</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.url"><source>Job page</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.url.description"><source>Page with the full description and how to apply. Empty: the detail page from the site settings.</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.description"><source>Summary</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.description.description"><source>Plain text, up to 1000 characters. The full text belongs on the job page.</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.tags"><source>Tags</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.tags.description"><source>Comma-separated skills or technologies; up to 16, each up to 28 characters.</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.category"><source>Category</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.reference_id"><source>Reference ID</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.job_type"><source>Job type</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.job_type.permanent"><source>Permanent</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.job_type.contract"><source>Contract</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.job_type.internship"><source>Internship</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.job_type.apprenticeship"><source>Apprenticeship</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.job_type.temporary"><source>Temporary</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.job_type.volunteer"><source>Volunteer</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.job_type.freelance"><source>Freelance</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.work_type"><source>Work type</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.work_type.on-site"><source>On-site</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.work_type.hybrid"><source>Hybrid</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.work_type.remote"><source>Remote</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.experience_level"><source>Experience level</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.experience_level.junior"><source>Junior</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.experience_level.mid"><source>Mid</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.experience_level.senior"><source>Senior</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.experience_level.lead"><source>Lead</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.experience_level.manager"><source>Manager</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.experience_level.director"><source>Director</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.experience_level.executive"><source>Executive</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.published_at"><source>Published</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.published_at.description"><source>Empty: creation date of the record.</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.apply_before"><source>Apply before</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.start_date"><source>Start date</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.end_date"><source>End date</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.workload_min"><source>Minimum</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.workload_max"><source>Maximum</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_min"><source>Minimum</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_max"><source>Maximum</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_currency"><source>Currency</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_interval"><source>Per</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_interval.hourly"><source>Hour</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_interval.daily"><source>Day</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_interval.weekly"><source>Week</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_interval.monthly"><source>Month</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.salary_interval.yearly"><source>Year</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.locations"><source>Locations</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_job.locations.description"><source>Empty: the employer's headquarters from the site settings.</source></trans-unit>
+
+      <trans-unit id="tx_ojobpub_domain_model_location"><source>Location</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_location.city"><source>City</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_location.country"><source>Country</source></trans-unit>
+      <trans-unit id="tx_ojobpub_domain_model_location.country.description"><source>ISO 3166-1 alpha-2, e.g. CH, DE, AT</source></trans-unit>
+    </body>
+  </file>
+</xliff>

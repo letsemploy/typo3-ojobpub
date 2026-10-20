@@ -1,0 +1,31 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  LetsEmploy\OJobPub\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Feed/*'
+
+  # Framework-independent core, constructed explicitly.
+  LetsEmploy\OJobPub\Feed\Normalizer: ~
+  LetsEmploy\OJobPub\Feed\Builder: ~
+
+  cache.ojobpub:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['ojobpub']
+
+  LetsEmploy\OJobPub\Service\FeedService:
+    arguments:
+      $cache: '@cache.ojobpub'
+    public: true
+
+  # Instantiated through GeneralUtility::makeInstance() by DataHandler.
+  LetsEmploy\OJobPub\Hooks\DataHandlerHook:
+    public: true
+
+  LetsEmploy\OJobPub\Middleware\WellKnownFeed:
+    public: true
