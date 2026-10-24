@@ -85,7 +85,7 @@ jobs:
             "typo3/cms-core:^${{ matrix.typo3 }}" "typo3/cms-frontend:^${{ matrix.typo3 }}"
           composer update --no-interaction --no-progress \
             ${{ matrix.dependencies == 'lowest' && '--prefer-lowest --prefer-stable' || '' }}
-          composer show typo3/cms-core phpunit/phpunit | grep -E '^(name|versions)'
+          composer show --direct
 
       - name: Lint
         run: find Classes Configuration Tests ext_*.php -name '*.php' -print0 | xargs -0 -n1 php -l
