@@ -12,8 +12,8 @@ The format is defined by `../schema/v1/ojobpub.json` (sibling repo `letsemploy/s
 | --- | --- |
 | `Classes/Feed/` (Normalizer, Builder, Json, Spec) | Implemented, unit tests pass, generated feeds validated against the schema |
 | Middleware, FeedService, NativeSource, command | Run in the dev environment on v13.4.37 and v14.3.10: feed validates, translations, "All languages", page links, Issues, 200/304 (ETag and If-Modified-Since)/HEAD/OPTIONS/405, `lastUpdated` stable across cache flushes. No automated tests yet (Roadmap 3) |
-| TCA, site set, ext_tables.sql | Loaded on both versions: `extension:setup` creates the tables, `make check-tca` reports no migrations. Backend forms and the site settings editor not yet clicked through |
-| DataHandler hook (cache flush) | Not verified yet |
+| TCA, site set, ext_tables.sql | Loaded on both versions: `extension:setup` creates the tables, `make check-tca` reports no migrations. Backend form (job + inline locations, translation) used on v14 (2026-11-07). Site settings editor not yet used |
+| DataHandler hook (cache flush) | Verified on v14: a job saved in the backend is in the feed immediately |
 | CI (`.github/workflows/ci.yml`) | Lint + unit tests + schema validation, PHP 8.2–8.5 × TYPO3 13.4/14.3 plus a lowest-deps job, `composer audit`. Coding standards, PHPStan, functional tests and release still missing (Roadmap 8) |
 | Dev environment (`compose.yaml`, `Build/dev/`) | Done, see Commands |
 | Functional tests, detail plugin, backend UI | Missing, see Roadmap |
@@ -96,7 +96,7 @@ vendor/bin/typo3 ojobpub:feed [site] [--issues] [--no-cache]   # print the feed,
 ## Roadmap (in order)
 
 1. ~~**Dev environment**~~ done (2026-10-24).
-2. **Make it run** in both versions: feed, TCA migrations, DB schema, DI, middleware order, translations and `t3://page` links verified on both. Still to check by hand: backend forms (job + inline locations, translation), the site set settings editor, cache flush via the DataHandler hook when a job is saved in the backend. Known gaps: link parameters and fragments of page links are dropped; sites without an enabled default language yield no jobs.
+2. **Make it run** in both versions: feed, TCA migrations, DB schema, DI, middleware order, translations and `t3://page` links verified on both. Backend form, translation and cache flush on save checked by hand on v14. Still to check: the site set settings editor (both versions) and the backend form on v13. Known gaps: link parameters and fragments of page links are dropped; sites without an enabled default language yield no jobs.
 3. **Functional tests** (`typo3/testing-framework`): middleware (200, 304, HEAD, OPTIONS, 405, disabled → 404, missing employer → 404), NativeSource with translations and hidden/start/end restrictions, cache invalidation via DataHandler, `lastUpdated` stability.
 4. **Editor feedback**: show Issues and a self-test to editors (like `Self_Test.php` in the WordPress plugin: fetch the apex URL, follow ≤5 redirects like SourceTracker, compare with the generated feed). Candidates: Reports module status provider, a dashboard widget, or an info box in the job list.
 5. **Detail page**: minimal list/detail plugin (or a content element) with a route enhancer for `tx_ojobpub_detail[job]`, plus schema.org `JobPosting` JSON-LD on the detail page (port `Json_Ld.php`).
