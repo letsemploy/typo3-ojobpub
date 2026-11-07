@@ -1,0 +1,29 @@
+"tx_ojobpub_domain_model_job"
+,"uid","pid","sys_language_uid","l10n_parent","hidden","deleted","starttime","endtime","t3ver_wsid","t3ver_oid","t3ver_state","title","description","url","job_type","salary_min","salary_max","salary_currency","salary_interval","published_at","apply_before","locations"
+# 1: complete, translated (2), no URL: detail page fallback
+,1,3,0,0,0,0,0,0,0,0,0,"Carpenter","We are looking for a carpenter.","","permanent",75000,90000,"CHF","yearly","2026-01-15","2099-12-31",2
+,2,3,1,1,0,0,0,0,0,0,0,"Zimmermann/Zimmerin","Wir suchen eine Fachperson für Holzbau.","","",0,0,"","",\NULL,\NULL,0
+# 3: external URL
+,3,3,0,0,0,0,0,0,0,0,0,"Site Manager","Lead our construction sites.","https://example.com/jobs/site-manager","permanent",0,0,"","","2026-01-14",\NULL,1
+# 4: page link
+,4,3,0,0,0,0,0,0,0,0,0,"Project Lead","From the offer to the handover.","t3://page?uid=2","permanent",0,0,"","","2026-01-13",\NULL,1
+# 5: "All languages", with a location that has -1 too
+,5,3,-1,0,0,0,0,0,0,0,0,"Software Developer","Build our planning tools.","https://example.com/jobs/developer","contract",0,0,"","","2026-01-12",\NULL,1
+# 6-11: never read (hidden, deleted, starts in 2100, ended in 2000, workspace version, folder not configured)
+,6,3,0,0,1,0,0,0,0,0,0,"Hidden","","https://example.com/jobs/hidden","permanent",0,0,"","",\NULL,\NULL,0
+,7,3,0,0,0,1,0,0,0,0,0,"Deleted","","https://example.com/jobs/deleted","permanent",0,0,"","",\NULL,\NULL,0
+,8,3,0,0,0,0,4102444800,0,0,0,0,"Scheduled","","https://example.com/jobs/scheduled","permanent",0,0,"","",\NULL,\NULL,0
+,9,3,0,0,0,0,0,946684800,0,0,0,"Ended","","https://example.com/jobs/ended","permanent",0,0,"","",\NULL,\NULL,0
+,10,3,0,0,0,0,0,0,1,0,1,"Workspace","","https://example.com/jobs/workspace","permanent",0,0,"","",\NULL,\NULL,0
+,11,4,0,0,0,0,0,0,0,0,0,"Other folder","","https://example.com/jobs/other-folder","permanent",0,0,"","",\NULL,\NULL,0
+# 12: read, but an Issue: the linked page does not exist, so no URL
+,12,3,0,0,0,0,0,0,0,0,0,"Broken link","","t3://page?uid=999","permanent",0,0,"","",\NULL,\NULL,0
+# 13: read, but left out by the Normalizer: application deadline has passed
+,13,3,0,0,0,0,0,0,0,0,0,"Expired","","https://example.com/jobs/expired","permanent",0,0,"","",\NULL,"2000-01-01",0
+"tx_ojobpub_domain_model_location"
+,"uid","pid","sys_language_uid","job","sorting","city","country"
+,1,3,0,1,1,"Bern","CH"
+,2,3,0,1,2,"Thun","CH"
+,3,3,0,3,1,"Zürich","CH"
+,4,3,0,4,1,"Biel/Bienne","CH"
+,5,3,-1,5,1,"Berlin","DE"

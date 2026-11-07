@@ -1,6 +1,7 @@
 <?php
 
-// Only used for installations without Composer (TER). composer.json is authoritative.
+// Only used by TYPO3 13 without Composer (TER). TYPO3 14 reads extra.typo3/cms.version
+// from composer.json instead; keep both versions in sync.
 $EM_CONF[$_EXTKEY] = [
     'title' => 'oJobPub',
     'description' => 'Publishes job openings as an oJobPub 1.0 feed at /.well-known/ojobpub.json.',

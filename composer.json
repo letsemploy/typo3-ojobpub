@@ -22,8 +22,9 @@
         "typo3/cms-frontend": "^13.4 || ^14.3"
     },
     "require-dev": {
+        "opis/json-schema": "^2.6",
         "phpunit/phpunit": "^11.5.57 || ^12.5.40 || ^13.4.3",
-        "opis/json-schema": "^2.6"
+        "typo3/testing-framework": "^9.5"
     },
     "autoload": {
         "psr-4": {
@@ -37,7 +38,11 @@
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "ojobpub"
+            "extension-key": "ojobpub",
+            "version": "0.1.0-alpha",
+            "Package": {
+                "providesPackages": {}
+            }
         }
     },
     "config": {

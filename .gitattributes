@@ -5,6 +5,7 @@
 /CLAUDE.md export-ignore
 /Makefile export-ignore
 /phpunit.xml.dist export-ignore
+/phpunit.functional.xml.dist export-ignore
 /.github export-ignore
 /Build export-ignore
 /compose.yaml export-ignore

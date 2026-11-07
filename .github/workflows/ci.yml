@@ -1,4 +1,5 @@
-# Lints and unit-tests the extension for every supported PHP and TYPO3 version.
+# Lints, unit- and functional-tests the extension for every supported PHP and TYPO3 version.
+# Functional tests run TYPO3 against SQLite, so no database service is needed.
 # Generated feeds are validated against the published oJobPub schema (letsemploy/schema).
 
 name: CI
@@ -65,7 +66,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: intl
+          extensions: intl, pdo_sqlite
           tools: composer
           coverage: none
 
@@ -97,3 +98,9 @@ jobs:
         env:
           OJOBPUB_SCHEMA: ${{ runner.temp }}/ojobpub.json
         run: vendor/bin/phpunit --display-skipped --fail-on-skipped
+
+      - name: Functional tests
+        env:
+          OJOBPUB_SCHEMA: ${{ runner.temp }}/ojobpub.json
+          typo3DatabaseDriver: pdo_sqlite
+        run: vendor/bin/phpunit -c phpunit.functional.xml.dist --display-skipped --fail-on-skipped --display-deprecations --fail-on-deprecation

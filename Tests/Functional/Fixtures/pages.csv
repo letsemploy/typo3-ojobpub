@@ -1,0 +1,7 @@
+"pages"
+,"uid","pid","sys_language_uid","l10n_parent","title","slug","doktype","is_siteroot","hidden"
+,1,0,0,0,"Example Ltd","/",1,1,0
+,2,1,0,0,"Jobs","/jobs",1,0,0
+,3,1,0,0,"Job records","/job-records",254,0,0
+,4,1,0,0,"Other records","/other-records",254,0,0
+,5,1,1,2,"Stellen","/jobs",1,0,0

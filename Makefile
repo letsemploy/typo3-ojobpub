@@ -16,12 +16,15 @@ comma := ,
 SCHEMA_MOUNT := $(if $(wildcard $(SCHEMA_DIR)/v1/ojobpub.json),-v $(SCHEMA_DIR):/schema:ro$(comma)Z -e OJOBPUB_SCHEMA=/schema/v1/ojobpub.json)
 TTY := $(shell [ -t 0 ] && echo -t)
 RUN = $(CONTAINER) run --rm -i $(TTY) -v $(CURDIR):/app:Z $(SCHEMA_MOUNT) -w /app $(IMAGE)
+# Functional tests need ext-intl, which the composer image lacks: use the dev image of TYPO3 14 (PHP 8.5).
+DEV_IMAGE := localhost/ojobpub-dev:php8.5
 
-.PHONY: help install test lint shell zip up down reset setup seed typo3 feed issues check-tca validate validate-all
+.PHONY: help install test test-functional lint shell zip up down reset setup seed typo3 feed issues check-tca validate validate-all
 
 help:
-	@echo "make install         composer install (dev dependencies: phpunit, opis/json-schema)"
+	@echo "make install         composer install (dev dependencies: phpunit, testing-framework, opis/json-schema)"
 	@echo "make test            unit tests; validates against ../schema/v1/ojobpub.json if present"
+	@echo "make test-functional  functional tests (TYPO3 + SQLite, in the dev image)"
 	@echo "make lint            php -l over all PHP files"
 	@echo "make zip             TER/manual-install archive in dist/"
 	@echo
@@ -43,6 +46,11 @@ install:
 
 test: vendor
 	$(RUN) vendor/bin/phpunit $(ARGS)
+
+test-functional: vendor
+	@$(CONTAINER) image inspect $(DEV_IMAGE) >/dev/null 2>&1 || $(COMPOSE) build typo3-14
+	$(CONTAINER) run --rm -i $(TTY) -v $(CURDIR):/app:Z $(SCHEMA_MOUNT) -e typo3DatabaseDriver=pdo_sqlite -w /app $(DEV_IMAGE) \
+		vendor/bin/phpunit -c phpunit.functional.xml.dist $(ARGS)
 
 lint:
 	$(RUN) sh -c 'find Classes Configuration Tests Build ext_*.php -name "*.php" -print0 | xargs -0 -n1 php -l | grep -v "^No syntax"; true'
