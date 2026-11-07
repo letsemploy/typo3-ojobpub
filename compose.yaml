@@ -1,0 +1,63 @@
+# Local TYPO3 v13.4 and v14.3 for developing and testing the extension.
+# Start with `make up setup seed` (TYPO3=14 by default, TYPO3=13 for v13),
+# then open http://localhost:8014/typo3 or :8013 (admin / Password1!).
+
+x-typo3: &typo3
+  depends_on:
+    - db
+  environment: &typo3-env
+    TYPO3_CONTEXT: Development
+  volumes:
+    - .:/ext:ro,z
+
+services:
+  db:
+    image: docker.io/library/mariadb:11
+    environment:
+      MARIADB_USER: typo3
+      MARIADB_PASSWORD: typo3
+      MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - db:/var/lib/mysql
+      - ./Build/dev/db-init.sql:/docker-entrypoint-initdb.d/init.sql:ro,z
+
+  typo3-13:
+    <<: *typo3
+    build:
+      context: Build/dev
+      dockerfile: Containerfile
+      args:
+        PHP: "8.3"
+    image: localhost/ojobpub-dev:php8.3
+    ports:
+      - "8013:80"
+    environment:
+      <<: *typo3-env
+      TYPO3_VERSION: "13.4"
+      TYPO3_BASE: http://localhost:8013/
+    volumes:
+      - .:/ext:ro,z
+      - typo3-13:/var/www/project
+
+  typo3-14:
+    <<: *typo3
+    build:
+      context: Build/dev
+      dockerfile: Containerfile
+      args:
+        PHP: "8.5"
+    image: localhost/ojobpub-dev:php8.5
+    ports:
+      - "8014:80"
+    environment:
+      <<: *typo3-env
+      TYPO3_VERSION: "14.3"
+      TYPO3_BASE: http://localhost:8014/
+    volumes:
+      - .:/ext:ro,z
+      - typo3-14:/var/www/project
+
+volumes:
+  db:
+  typo3-13:
+  typo3-14:

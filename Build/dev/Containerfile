@@ -1,0 +1,18 @@
+# PHP + Apache for the local TYPO3 installations (see compose.yaml).
+ARG PHP=8.4
+FROM docker.io/library/php:${PHP}-apache
+
+COPY --from=docker.io/mlocati/php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=docker.io/library/composer:2 /usr/bin/composer /usr/local/bin/composer
+
+RUN install-php-extensions gd intl mysqli opcache pdo_mysql zip \
+    && apt-get update && apt-get install -y --no-install-recommends git unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && a2enmod headers rewrite \
+    && sed -ri -e 's!/var/www/html!/var/www/project/public!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!AllowOverride None!AllowOverride All!g' /etc/apache2/apache2.conf \
+    && printf 'memory_limit=512M\nmax_execution_time=240\nmax_input_vars=1500\nupload_max_filesize=32M\npost_max_size=32M\n' > /usr/local/etc/php/conf.d/typo3.ini \
+    && mkdir -p /var/www/project/public && chown -R www-data:www-data /var/www/project
+
+ENV COMPOSER_HOME=/tmp/composer
+WORKDIR /var/www/project

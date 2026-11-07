@@ -143,10 +143,18 @@ final class Normalizer
         if (!is_scalar($value)) {
             return '';
         }
-        $text = html_entity_decode(strip_tags((string)$value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $text = html_entity_decode($this->stripTags((string)$value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $text = trim((string)preg_replace('/\s+/u', ' ', $text));
 
         return mb_substr($text, 0, $max);
+    }
+
+    /**
+     * All tags removed, script and style elements including their contents.
+     */
+    private function stripTags(string $html): string
+    {
+        return strip_tags((string)preg_replace('@<(script|style)\b[^>]*>.*?</\1\s*>@si', '', $html));
     }
 
     /**
@@ -161,7 +169,7 @@ final class Normalizer
         $html = (string)$value;
         // Keep block boundaries as line breaks before stripping tags.
         $html = (string)preg_replace('#<(br|/p|/div|/li|/h[1-6])\b[^>]*>#i', "\n", $html);
-        $text = html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $text = html_entity_decode($this->stripTags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $text = (string)preg_replace('/javascript\s*:/iu', '', $text);
         $text = (string)preg_replace('/[^\S\n]+/u', ' ', $text);
         $text = trim((string)preg_replace('/\s*\n\s*/u', "\n", $text));

@@ -103,6 +103,16 @@ final class NormalizerTest extends TestCase
     }
 
     #[Test]
+    public function scriptAndStyleContentsAreRemoved(): void
+    {
+        self::assertSame(
+            "Hallo\nWelt",
+            $this->normalizer->description('<p>Hallo</p><script>alert(1)</script><STYLE type="text/css">p {}</STYLE>Welt'),
+        );
+        self::assertSame('ab', $this->normalizer->text("a<script>\nalert(1)\n</script>b", 100));
+    }
+
+    #[Test]
     #[DataProvider('amounts')]
     public function amountsAreParsed(mixed $input, int|float|null $expected): void
     {

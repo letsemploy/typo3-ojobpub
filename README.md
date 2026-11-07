@@ -46,7 +46,7 @@ vendor/bin/typo3 ojobpub:feed <site-identifier> --issues
 
 The feed must be reachable on the **apex domain** (`example.com`). A redirect from `example.com` to `www.example.com` that keeps the path is fine.
 
-- Apache with TYPO3's default `.htaccess`: nothing to do; `/.well-known/ojobpub.json` is passed to `index.php`.
+- Apache with TYPO3's default `.htaccess`: nothing to do; `/.well-known/ojobpub.json` is passed to `index.php`. That `.htaccess` removes `ETag` headers; conditional requests still work through `Last-Modified` / `If-Modified-Since`.
 - Nginx: many configurations deny all dot paths (`location ~ /\. { deny all; }`). Exclude `.well-known`, e.g. `location ~ /\.(?!well-known/) { deny all; }`, and make sure `/.well-known/` falls through to `index.php` (`try_files $uri /index.php$is_args$args;`).
 - If something else already serves `/.well-known/` from disk (e.g. ACME challenges), only `ojobpub.json` must reach TYPO3.
 
@@ -62,7 +62,17 @@ and validate with the [online validator](https://validator.letsemploy.org). Then
 
 Other extensions can provide jobs by implementing `LetsEmploy\OJobPub\Source\SourceInterface`; the class is registered automatically. Select it with the site setting `ojobpub.source`. Return raw arrays with oJobPub field names; validation and cleanup happen in the extension's Normalizer.
 
-Development: see `CLAUDE.md`. Specification: https://docs.letsemploy.org/ojobpub/specification/
+Local TYPO3 v14.3 and v13.4 with sample jobs (podman and podman-compose; `COMPOSE=docker-compose CONTAINER=docker` for Docker):
+
+```
+make up setup seed            # TYPO3 14 on http://localhost:8014 (admin / Password1!)
+make up setup seed TYPO3=13   # TYPO3 13 on http://localhost:8013
+make feed                     # print the feed
+make issues                   # jobs left out and why
+make validate-all             # both versions: install, seed, validate against ../schema
+```
+
+More in `CLAUDE.md`. Specification: https://docs.letsemploy.org/ojobpub/specification/
 
 ## License
 

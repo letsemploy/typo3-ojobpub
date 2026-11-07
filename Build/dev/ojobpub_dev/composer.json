@@ -1,0 +1,19 @@
+{
+    "name": "letsemploy/ojobpub-dev",
+    "type": "typo3-cms-extension",
+    "description": "Development helpers for letsemploy/typo3-ojobpub: dev site and sample jobs. Never install in production.",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "letsemploy/typo3-ojobpub": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "LetsEmploy\\OJobPubDev\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "ojobpub_dev"
+        }
+    }
+}

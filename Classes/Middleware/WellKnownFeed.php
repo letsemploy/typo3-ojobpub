@@ -64,7 +64,7 @@ final class WellKnownFeed implements MiddlewareInterface
             ->withHeader('Cache-Control', 'public, max-age=' . self::MAX_AGE)
             ->withHeader('X-Content-Type-Options', 'nosniff');
 
-        if ($this->notModified($request, $feed->etag)) {
+        if ($this->notModified($request, $feed->etag, $feed->lastUpdated)) {
             return $response->withStatus(304);
         }
 
@@ -97,11 +97,16 @@ final class WellKnownFeed implements MiddlewareInterface
         return null;
     }
 
-    private function notModified(ServerRequestInterface $request, string $etag): bool
+    /**
+     * RFC 9110: If-Modified-Since only counts without If-None-Match. It matters
+     * because TYPO3's default .htaccess removes the ETag header on Apache.
+     */
+    private function notModified(ServerRequestInterface $request, string $etag, \DateTimeInterface $lastUpdated): bool
     {
         $header = $request->getHeaderLine('If-None-Match');
         if ($header === '') {
-            return false;
+            $since = strtotime($request->getHeaderLine('If-Modified-Since'));
+            return $since !== false && $lastUpdated->getTimestamp() <= $since;
         }
         foreach (explode(',', $header) as $candidate) {
             $candidate = trim($candidate);

@@ -1,0 +1,4 @@
+-- One database per TYPO3 version (see compose.yaml).
+CREATE DATABASE IF NOT EXISTS typo3_13 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS typo3_14 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT ALL PRIVILEGES ON `typo3\_%`.* TO 'typo3'@'%';

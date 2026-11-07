@@ -88,7 +88,7 @@ jobs:
           composer show --direct
 
       - name: Lint
-        run: find Classes Configuration Tests ext_*.php -name '*.php' -print0 | xargs -0 -n1 php -l
+        run: find Classes Configuration Tests Build ext_*.php -name '*.php' -print0 | xargs -0 -n1 php -l
 
       - name: Download oJobPub schema
         run: curl -fsSL https://raw.githubusercontent.com/letsemploy/schema/main/v1/ojobpub.json -o "$RUNNER_TEMP/ojobpub.json"
